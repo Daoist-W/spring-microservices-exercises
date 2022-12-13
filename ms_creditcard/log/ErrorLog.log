@@ -1,0 +1,4 @@
+13-Dec-2022 17:26:39 INFO - Starting MsCreditcardApplication using Java 17.0.4.1 on DESKTOP-87JOT19 with PID 19556 (C:\Users\User\lex\microservices-exercises\ms_creditcard\target\classes started by User in C:\Users\User\lex\microservices-exercises\ms_creditcard)
+13-Dec-2022 17:26:39 DEBUG - Running with Spring Boot v2.6.6, Spring v5.3.18
+13-Dec-2022 17:26:39 INFO - No active profile set, falling back to 1 default profile: "default"
+13-Dec-2022 17:26:49 INFO - Started MsCreditcardApplication in 11.104 seconds (JVM running for 15.765)
