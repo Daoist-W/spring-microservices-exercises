@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    username: demo
+    password: demo
+    url: jdbc:mysql://localhost:3306/infygo_creditcard
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update   
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+server:
+  servlet.context-path: /api
+  port: 9300
+  
+  
+spring:
+  application:
+    name: creditcardMS
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+      config:
+        fail-fast: false
+        enabled: true
+        prefixes: config
+        defaultContext: apps
+        data-key: data
+        profileSeparator: '::'
+        format: YAML
+

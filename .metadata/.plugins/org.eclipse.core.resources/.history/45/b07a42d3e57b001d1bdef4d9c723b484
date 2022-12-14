@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: creditcardMS
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+      config:
+        fail-fast: false
+        enabled: true
+        prefixes: config
+        defaultContext: apps
+        data-key: data
+        profileSeparator: '::'
+        format: YAML
+
