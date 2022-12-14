@@ -5,8 +5,8 @@ spring:
       suffix: .jsp      
  
   datasource:
-    username: root
-    password: root
+    username: demo
+    password: demo
     url: jdbc:mysql://localhost:3306/db_irs
   jpa:
       show-sql: true
@@ -20,15 +20,6 @@ server:
   servlet.context-path: /InfyGoBoot
   port: 4242
   
-  
-logging:
-  file:
-    name: Errorlog.log
-  level:
-    root: info
-    com.infoys.ars: info
-  pattern:
-    file: "%d{yyyy-MM-dd HH:mm:ss,SSS} %5p [%t] %c [%M] - %m%n"
 
 
 

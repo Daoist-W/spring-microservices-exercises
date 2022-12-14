@@ -2,7 +2,7 @@ spring:
   datasource:
     username: demo
     password: demo
-    url: jdbc:mysql://localhost:3306/db_irs
+    url: jdbc:mysql://localhost:3306/infygo_creditcard
   jpa:
     show-sql: true
     hibernate:
@@ -12,7 +12,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 server:
   servlet.context-path: /api
-  port: 5500
+  port: 9300
   
   
 #logging:
