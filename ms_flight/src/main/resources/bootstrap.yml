@@ -3,6 +3,10 @@ spring:
     name: flightMS
   cloud:
     consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+        health-check-path: /api/actuator/health
       config:
         fail-fast: false
         enabled: true

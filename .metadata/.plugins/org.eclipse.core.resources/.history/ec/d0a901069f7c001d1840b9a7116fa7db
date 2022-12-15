@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ticketMS
+  cloud:
+    consul:
+      config:
+        fail-fast: false
+        enabled: true
+        prefixes: config
+        defaultContext: apps
+        data-key: data
+        profileSeparator: '::'
+        format: YAML
