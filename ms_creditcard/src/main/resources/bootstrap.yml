@@ -4,6 +4,7 @@ spring:
   cloud:
     consul:
       host: localhost
+      port: 8500
       discovery:
         hostname: localhost
         health-check-path: /api/actuator/health
