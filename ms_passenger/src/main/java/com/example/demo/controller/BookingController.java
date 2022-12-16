@@ -14,8 +14,6 @@ import java.util.logging.Logger;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -43,9 +41,9 @@ import com.example.demo.utility.ClientErrorInformation;
 @RequestMapping("/book")
 public class BookingController {
 
-	private static final String HTTP_LOCALHOST_9100_API_TICKET = "http://localhost:9100/api/ticket";
+	private static final String HTTP_TICKET_MS = "http://TicketMS/api/ticket";
 
-	private static final String HTTP_LOCALHOST_9200_API_FLIGHTS = "http://localhost:9200/api/flights/";
+	private static final String HTTP_FLIGHT_MS = "http://FlightMS/api/flights/";
 
 	protected Logger logger = Logger.getLogger(BookingController.class.getName());
 
@@ -55,22 +53,13 @@ public class BookingController {
 	private int noOfSeats;
 	
 	@Autowired
-	private DiscoveryClient client;
-	
-	private RestTemplate template = new RestTemplate();
+	private RestTemplate template;
 	
 
 	public BookingController() {
 		ticket = new Ticket();		
 	}
 	
-	private String getServiceUri(String service, Integer index) {
-		List<ServiceInstance> serviceURis = client.getInstances(service);
-		if(serviceURis.isEmpty()) return null;
-		return serviceURis.get(index).getUri().toString();
-	}
-
-
 	@PostMapping(value = "/{flightId}/{username}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<BookingDetails> bookFlight(@PathVariable("flightId") String flightId,
 		 @Valid @RequestBody PassengerDetails passengerDetails, @PathVariable("username") String username,Errors errors) throws InfyGoServiceException, ARSServiceException {
@@ -95,15 +84,8 @@ public class BookingController {
 		int pnr = (int) (Math.random() * 1858955);
 
 		ticket.setPnr(pnr);
-//		Date date = new Date();
-//		Calendar calendar = Calendar.getInstance();
-//		calendar.setTime(date);
-          
-//		Flight flight = flightService.getFlights(flightId);
-//		Flight flight = template.getForObject(HTTP_LOCALHOST_9200_API_FLIGHTS + flightId, Flight.class);
-		String flightBaseURI = getServiceUri("FlightMS", 0) + "/api"; 
-		System.out.println("flight uri: " + flightBaseURI);
-		Flight flight = template.getForObject(flightBaseURI + "/flights/" + flightId, Flight.class);
+
+		Flight flight = template.getForObject(HTTP_FLIGHT_MS + flightId, Flight.class);
 
 		double fare = flight.getFare();
 		System.out.println("Fare per person:****** " + fare);
@@ -123,16 +105,11 @@ public class BookingController {
 		ticket.setTotalFare(totalFare);
 		noOfSeats = passengerDetails.getPassengerList().size();
 		ticket.setNoOfSeats(noOfSeats);
-//	    ticketService.createTicket(ticket);
-//		template.postForObject(HTTP_LOCALHOST_9100_API_TICKET, ticket, Boolean.class);
-		String ticketBaseURI = getServiceUri("TicketMS", 0) + "/api"; 
-		System.out.println("ticket uri: " + ticketBaseURI);
-		template.postForObject(ticketBaseURI + "/ticket", ticket, Boolean.class);
+		template.postForObject(HTTP_TICKET_MS, ticket, Boolean.class);
 		
 		addPassengers(bookingDetails.getPassengerList());
 		
-//		flightService.updateFlight(flightId, noOfSeats);
-		template.getForEntity(flightBaseURI + "/flights/" + flightId + "/" + noOfSeats, null);
+		template.getForEntity(HTTP_FLIGHT_MS + flightId + "/" + noOfSeats, null);
 
 		return new ResponseEntity<BookingDetails>(bookingDetails, HttpStatus.OK);
 

@@ -27,7 +27,6 @@ INDEX VERSION 1.131+C:\Users\User\lex\microservices-exercises\.metadata\.plugins
 609273652.index
 738283934.index
 1129797327.index
-981872362.index
 1388518177.index
 2139565499.index
 63586752.index

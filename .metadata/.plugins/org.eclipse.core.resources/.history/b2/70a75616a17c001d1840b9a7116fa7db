@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: userMS
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+        health-check-path: /api/actuator/health
+      config:
+        fail-fast: false
+        enabled: true
+        prefixes: config
+        defaultContext: apps
+        data-key: data
+        profileSeparator: '::'
+        format: YAML
