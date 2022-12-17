@@ -8,7 +8,9 @@ spring:
       - id: creditCardMS
         uri: lb://creditcardMS
         predicates:
-        - Path=/api/payment
+        - Path=/payment
+        filters:
+        - PrefixPath=/api
       - id: flightMS
         uri: lb://flightMS
         predicates:
