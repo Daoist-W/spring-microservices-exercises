@@ -14,7 +14,7 @@ public class TicketService {
 
 	public void createTicket(Ticket ticket) {
 
-		ticketRepository.saveAndFlush(ticket);
+		ticketRepository.save(ticket);
 
 	}
 

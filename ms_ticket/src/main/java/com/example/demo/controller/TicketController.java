@@ -17,6 +17,9 @@ public class TicketController {
 	
 	@PostMapping("/ticket")
 	public ResponseEntity<Boolean> createTicket(@RequestBody Ticket ticket){
+		if(ticket.getPnr() % 2 == 0) {
+			throw new RuntimeException();
+		}
 		ticketService.createTicket(ticket);
 		return ResponseEntity.ok(null);
 	}

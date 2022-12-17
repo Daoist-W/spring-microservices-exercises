@@ -49,6 +49,9 @@ public class FlightController {
 	@GetMapping("/{flightId}")
 	public Flight getFlights(@PathVariable("flightId") String flightId) throws ARSServiceException {
 		System.out.println("flight id" + flightId);
+		if(flightId.equals("F101")) {
+			throw new RuntimeException();
+		}
 		return flightService.getFlights(flightId);
 	}
 
