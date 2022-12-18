@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +15,11 @@ public class TicketController {
 	private TicketService ticketService;
 	
 	@PostMapping("/ticket")
-	public ResponseEntity<Boolean> createTicket(@RequestBody Ticket ticket){
+	public void createTicket(@RequestBody Ticket ticket){
 		if(ticket.getPnr() % 2 == 0) {
 			throw new RuntimeException();
 		}
 		ticketService.createTicket(ticket);
-		return ResponseEntity.ok(null);
 	}
 	
 }

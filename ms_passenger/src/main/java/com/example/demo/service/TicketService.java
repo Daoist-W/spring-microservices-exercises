@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
+import com.example.demo.clients.TicketClient;
 import com.example.demo.controller.BookingController;
 import com.example.demo.dto.Flight;
 import com.example.demo.dto.Ticket;
@@ -17,9 +17,8 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 public class TicketService {
 	
 	@Autowired
-	private RestTemplate template;
+	private TicketClient client;
 	
-	private static final String HTTP_TICKET_MS = "http://TicketMS/api/ticket";
 	protected Logger logger = Logger.getLogger(BookingController.class.getName());
 
 	@CircuitBreaker(name = "ticketMSBreaker", fallbackMethod = "prepareTicketFallback")
@@ -35,7 +34,7 @@ public class TicketService {
 		ticket.setUserId(username);		
 		ticket.setTotalFare(totalFare);
 		ticket.setNoOfSeats(noOfSeats);
-		template.postForObject(HTTP_TICKET_MS, ticket, Boolean.class);
+		client.createTicket(ticket);
 		return ticket;
 	}
 	
